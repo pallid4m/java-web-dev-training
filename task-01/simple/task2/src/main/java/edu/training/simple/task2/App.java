@@ -29,9 +29,14 @@ public class App {
     }
 
     public static String getDayMonthByNumber(int dayNumber) {
-        int day = dayNumber % 30;
-        int month = dayNumber / 30 + 1;
-        return String.format("day: %d; month: %d", day, month);
+        int[] daysInMoth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int i = 0;
+        while (true) {
+            if (dayNumber <= daysInMoth[i]) {
+                return String.format("day: %d; month: %d", dayNumber, ++i);
+            }
+            dayNumber -= daysInMoth[i++];
+        }
     }
 
     private static boolean isDayValid(int number) {
