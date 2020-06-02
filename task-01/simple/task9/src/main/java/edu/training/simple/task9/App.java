@@ -4,14 +4,14 @@ public class App {
 
 //    (1+2) * (1+2+3) * ... * (1+2+...+10)
     public static void main(String[] args) {
-        long rr = 1;
+        long multiply = 1;
         for (int i = 2; i <= 10; i++) {
-            long tt = 1;
+            long sum = 1;
             for (int j = 2; j <= i; j++) {
-                tt += j;
+                sum += j;
             }
-            rr *= tt;
+            multiply *= sum;
         }
-        System.out.println(rr);
+        System.out.println(multiply);
     }
 }

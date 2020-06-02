@@ -14,8 +14,8 @@ public class App {
             System.out.print("> a1: "); int a1 = scanner.nextInt();
             System.out.print("> d: "); int d = scanner.nextInt();
             int overInt = getOverloadInt(a1, d);
-//            long overLong = getOverloadLong(a1, d);
-//            System.out.printf("overloaded int: %d\toverloaded long: %d\n", overInt, overLong);
+            long overLong = getOverloadLong(a1, d);
+            System.out.printf("overloaded int: %d\toverloaded long: %d\n", overInt, overLong);
         } while (true);
     }
 
