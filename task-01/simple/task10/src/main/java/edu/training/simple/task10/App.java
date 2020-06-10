@@ -5,26 +5,25 @@ import java.util.Scanner;
 
 public class App {
 
-    private boolean seqIncrease = true;
-    private boolean samePairs = false;
-    private boolean signSwap = true;
+    private static boolean seqIncrease = true;
+    private static boolean samePairs = false;
+    private static boolean signSwap = true;
 
     public static void main(String[] args) {
-
-        App app = new App();
+        int num;
+        int prevNum = 0;
 
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        int num, prevNum = 0;
         do {
             System.out.print("> number: ");
             num = scanner.nextInt();
             if (prevNum != 0 && num != 0) {
-                app.seqIncrease = num > prevNum && app.seqIncrease;
-                app.samePairs = prevNum == num || app.samePairs;
-                app.signSwap = Integer.signum(prevNum) != Integer.signum(num) && app.signSwap;
+                seqIncrease = num > prevNum && seqIncrease;
+                samePairs = prevNum == num || samePairs;
+                signSwap = Integer.signum(prevNum) != Integer.signum(num) && signSwap;
             }
             prevNum = num;
         } while (num != 0);
-        System.out.printf("increasing sequence: %b\nsame pairs: %b\nsign swap: %b\n", app.seqIncrease, app.samePairs, app.signSwap);
+        System.out.printf("increasing sequence: %b\nsame pairs: %b\nsign swap: %b\n", seqIncrease, samePairs, signSwap);
     }
 }

@@ -1,23 +1,16 @@
 package edu.training.simple.task7;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
 public class App {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        do {
-            System.out.print("> value: ");
-            double value = scanner.nextDouble();
-            double ret = reverse(value);
-            System.out.println(ret);
-        } while (true);
+        double number = 123.456;
+        double reversedNumber = reverse(number);
+        System.out.println(reversedNumber);
     }
 
     public static double reverse(double value) {
-        double part = value % 1 * 1000;
-        double whole = (value - part) / 1000;
-        return part + whole;
+        double part = value % 1;
+        double whole = value - part;
+        return (int) (part * 1000) + whole / 1000;
     }
 }

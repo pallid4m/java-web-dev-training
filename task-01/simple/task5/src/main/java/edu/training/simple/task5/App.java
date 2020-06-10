@@ -1,43 +1,37 @@
 package edu.training.simple.task5;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
 public class App {
 
-    private int first;
-    private int second;
-    private int third;
+    private int firstDigit;
+    private int secondDigit;
+    private int thirdDigit;
 
     public static void main(String[] args) {
+        int number = 123;
 
         App app = new App();
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        do {
-            System.out.print("> number: "); int number = scanner.nextInt();
-            app.setDigits(number);
-            int sum = app.getSum();
-            int mul = app.getMul();
-            int customDigit = app.getFourDigitNumber();
-            System.out.printf("sum: %d\tmul: %d\tcustom: %d\n", sum, mul, customDigit);
-        } while (true);
+        app.setDigits(number);
+        int sum = app.getSum();
+        int mul = app.getMul();
+        int customNumber = app.getCustomNumber();
+        System.out.printf("sum: %d;\tmul: %d;\tcustom: %d;\n", sum, mul, customNumber);
     }
 
     public void setDigits(int number) {
-        first = number / 100;
-        second = (number - first * 100) / 10;
-        third = number - first * 100 - second * 10;
+        firstDigit = number / 100;
+        secondDigit = (number - firstDigit * 100) / 10;
+        thirdDigit = number - firstDigit * 100 - secondDigit * 10;
     }
 
     public int getSum() {
-        return first + second + third;
+        return firstDigit + secondDigit + thirdDigit;
     }
 
     public int getMul() {
-        return first * second * third;
+        return firstDigit * secondDigit * thirdDigit;
     }
 
-    public int getFourDigitNumber() {
-        return third * 1000 + first * 100 + second * 10 + third;
+    public int getCustomNumber() {
+        return thirdDigit * 1000 + firstDigit * 100 + secondDigit * 10 + thirdDigit;
     }
 }

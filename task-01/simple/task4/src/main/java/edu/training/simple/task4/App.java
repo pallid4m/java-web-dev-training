@@ -1,18 +1,11 @@
 package edu.training.simple.task4;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
 public class App {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        do {
-            System.out.print("> x: ");
-            double value = scanner.nextDouble();
-            double ret = getFunctionResult(value);
-            System.out.println(ret);
-        } while (true);
+        double value = 1;
+        double ret = getFunctionResult(value);
+        System.out.println(ret);
     }
 
     public static double getFunctionResult(double x) {

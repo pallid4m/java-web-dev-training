@@ -1,45 +1,83 @@
 package edu.training.simple.task2;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
 public class App {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        String request;
-        do {
-            System.out.print("> ");
-            request = scanner.next();
-            System.out.println(dispatch(request));
-        } while (!request.equals("q"));
+        int dayNumber = 123;
+        dayMonthByNumber(dayNumber);
     }
 
-    public static String dispatch(String request) {
-        try {
-            int number = Integer.parseInt(request);
-            if (isDayValid(number)) {
-                return getDayMonthByNumber(number);
-            } else {
-                return "the day isn't valid";
-            }
-        } catch (Exception e) {
-            return request.equals("q") ? "bye" : "smth have gone wrong";
+    public static void dayMonthByNumber(int dayNumber) {
+        int month;
+        if (dayNumber <= 31) {
+            month = 1;
+            System.out.println(dayNumber + "/" + month);
+            return;
         }
-    }
-
-    public static String getDayMonthByNumber(int dayNumber) {
-        int[] daysInMoth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        int i = 0;
-        while (true) {
-            if (dayNumber <= daysInMoth[i]) {
-                return String.format("day: %d; month: %d", dayNumber, ++i);
-            }
-            dayNumber -= daysInMoth[i++];
+        dayNumber -= 31;
+        if (dayNumber <= 28) {
+            month = 2;
+            System.out.println(dayNumber + "/" + month);
+            return;
         }
-    }
-
-    private static boolean isDayValid(int number) {
-        return number <= 365 && number >= 0;
+        dayNumber -= 28;
+        if (dayNumber <= 31) {
+            month = 3;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 31;
+        if (dayNumber <= 30) {
+            month = 4;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 30;
+        if (dayNumber <= 31) {
+            month = 5;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 31;
+        if (dayNumber <= 30) {
+            month = 6;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 30;
+        if (dayNumber <= 31) {
+            month = 7;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 31;
+        if (dayNumber <= 31) {
+            month = 8;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 31;
+        if (dayNumber <= 30) {
+            month = 9;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 30;
+        if (dayNumber <= 31) {
+            month = 10;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 31;
+        if (dayNumber <= 30) {
+            month = 11;
+            System.out.println(dayNumber + "/" + month);
+            return;
+        }
+        dayNumber -= 30;
+        if (dayNumber <= 31) {
+            month = 12;
+            System.out.println(dayNumber + "/" + month);
+        }
     }
 }

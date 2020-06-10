@@ -1,29 +1,24 @@
 package edu.training.simple.task8;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
 public class App {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        do {
-            System.out.print("> a: "); int a = scanner.nextInt();
-            System.out.print("> b: "); int b = scanner.nextInt();
-            System.out.print("> h: "); int h = scanner.nextInt();
-            System.out.print("> c: "); int c = scanner.nextInt();
-            walk(a, b, h, c);
-        } while (true);
+        int a = -10;
+        int b = 10;
+        int h = 1;
+        int c = 1;
+
+        walk(a, b, h, c);
     }
 
     public static void walk(int a, int b, int h, int c) {
         for (int x = a; x <= b; x += h) {
-            int y = getFunction(x, c);
+            int y = getFunctionResult(x, c);
             System.out.println(y);
         }
     }
 
-    private static int getFunction(int x, int c) {
+    private static int getFunctionResult(int x, int c) {
         return x == 15 ? (x + c) * 2 : (x - c) + 6;
     }
 }
