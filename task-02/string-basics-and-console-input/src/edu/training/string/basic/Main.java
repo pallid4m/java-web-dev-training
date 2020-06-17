@@ -3,26 +3,26 @@ package edu.training.string.basic;
 public class Main {
 
     public static void main(String[] args) {
-        String string = "hELlo, jAva WoRld!";
+
     }
 
 //    task 1
-    public static void separateEvenOddSymbol(String string) {
+    public static String separatedEvenOddSymbol(String string) {
         StringBuilder evenStringBuilder = new StringBuilder();
         StringBuilder oddStringBuilder = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
             if ((i + 1) % 2 != 0) {
-                evenStringBuilder.append(ch);
-            } else {
                 oddStringBuilder.append(ch);
+            } else {
+                evenStringBuilder.append(ch);
             }
         }
-        System.out.printf("even string: %s; odd string: %s\n", evenStringBuilder, oddStringBuilder);
+        return String.format("odd string: %s\neven string: %s\n", oddStringBuilder, evenStringBuilder);
     }
 
 //    task 2
-    public static void printPercentLoweUpperCase(String string) {
+    public static String printPercentLowerUpperCase(String string) {
         int lowerCaseCount = 0;
         int upperCaseCount = 0;
         for (int i = 0; i < string.length(); i++) {
@@ -37,13 +37,14 @@ public class Main {
         }
         double percentLowerCase = (double) lowerCaseCount / string.length() * 100;
         double percentUpperCase = (double) upperCaseCount / string.length() * 100;
-        System.out.printf("percent1: %.2f; percent2: %.2f\n", percentLowerCase, percentUpperCase);
+        return String.format("lower case percent: %.2f\nupper case percent: %.2f\n", percentLowerCase, percentUpperCase);
     }
 
 //    task 3
     public static String deleteSameCharacter(String string) {
+        StringBuilder stringBuilder = new StringBuilder();
         char firstChar = string.charAt(0);
-        StringBuilder stringBuilder = new StringBuilder(firstChar);
+        stringBuilder.append(firstChar);
         for (int i = 1; i < string.length(); i++) {
             char nextChar = string.charAt(i);
             boolean isSameChar = false;
@@ -89,20 +90,20 @@ public class Main {
 //    task 7
     public static String deleteSubstring(String string, String dest) {
         StringBuilder stringBuilder = new StringBuilder(string);
-        int start = stringBuilder.indexOf(dest);
-        int end = dest.length();
-        stringBuilder.delete(start, end);
+        int startIndex = stringBuilder.indexOf(dest);
+        int endIndex = startIndex + dest.length();
+        stringBuilder.delete(startIndex, endIndex);
         return stringBuilder.toString();
     }
 
 //    task 8
-    public static String copyStringPart(String string, int offset, int count) {
+    public static String copyPartString(String string, int offset, int count) {
         char[] data = string.toCharArray();
         return String.copyValueOf(data, offset, count);
     }
 
 //    task 9
-    public static int getStringLength(String string) {
+    public static int length(String string) {
         return string.length();
     }
 
@@ -121,7 +122,7 @@ public class Main {
     }
 
 //    task 12
-    public static String replaceSpaceCharacters(String string) {
+    public static String replaceSpaceCharacter(String string) {
         return string.replaceAll("\\s+", "*");
     }
 
@@ -134,19 +135,21 @@ public class Main {
                 maxWord = words[i];
             }
         }
-        return maxWord.replace('a', 'b');
+        String newWord = maxWord.replace('a', 'b');
+        return string.replace(maxWord, newWord);
     }
 
 //    task 14
-    public static int getMinWordLength(String string) {
+    public static int minWordLength(String string) {
         String[] words = string.split("\\W+");
-        String minWord = words[0];
+        int minWordLength = words[0].length();
         for (int i = 1; i < words.length; i++) {
-            if (words[i].length() < minWord.length()) {
-                minWord = words[i];
+            int wordLength = words[i].length();
+            if (wordLength < minWordLength) {
+                minWordLength = wordLength;
             }
         }
-        return minWord.length();
+        return minWordLength;
     }
 
 //    task 15
@@ -156,28 +159,46 @@ public class Main {
     }
 
 //    task 16
-    public static String swapWord(String string, int firstWord, int secondWord) {
-        String[] words = string.split("\\W+");
+    public static String swapWord(String string, String firstWord, String secondWord) {
+        StringBuilder stringBuilder = new StringBuilder(string);
+        int fromIndex = 0;
+        int firstWordIndex = 0;
+        int secondWordIndex = 0;
 
-        String swapWord = words[firstWord];
-        words[firstWord] = words[secondWord];
-        words[secondWord] = swapWord;
-
-        StringBuilder wordStringBuilder = new StringBuilder();
-        for (String word : words) {
-            wordStringBuilder.append(word);
+        while (firstWordIndex != -1 && secondWordIndex != -1) {
+            firstWordIndex = stringBuilder.indexOf(firstWord, fromIndex);
+            secondWordIndex = stringBuilder.indexOf(secondWord, fromIndex);
+            if ((firstWordIndex < secondWordIndex || secondWordIndex == -1) && firstWordIndex != - 1) {
+                stringBuilder.replace(firstWordIndex, firstWordIndex + firstWord.length(), secondWord);
+                fromIndex = firstWordIndex + secondWord.length();
+            } else if (secondWordIndex != - 1) {
+                stringBuilder.replace(secondWordIndex, secondWordIndex + secondWord.length(), firstWord);
+                fromIndex = secondWordIndex + firstWord.length();
+            }
         }
-        return wordStringBuilder.toString();
+        return stringBuilder.toString();
     }
 
 //    task 17
     public static String deleteLastWord(String string) {
-        String[] words = string.split("\\W+");
-        StringBuilder wordStringBuilder = new StringBuilder();
-        for (int i = 0; i < words.length - 1; i++) {
-            wordStringBuilder.append(words[i]);
+        StringBuilder stringBuilder = new StringBuilder(string);
+        int start = 0;
+        int end = 0;
+        boolean isWord = false;
+        for (int i = string.length() - 1; i >= 0; i--) {
+            char ch = string.charAt(i);
+            if (Character.isLetter(ch)) {
+                if (!isWord) {
+                    end = i + 1;
+                    isWord = true;
+                }
+            } else if (isWord) {
+                start = i + 1;
+                break;
+            }
         }
-        return wordStringBuilder.toString();
+        stringBuilder.delete(start, end);
+        return stringBuilder.toString();
     }
 
 //    task 18
@@ -191,26 +212,29 @@ public class Main {
 //    task 19
     public static boolean isPalindrome(String string) {
         String lowerCaseString = string.toLowerCase();
-        int halfLength = string.length() / 2;
-        String leftPeacePalindrome = lowerCaseString.substring(0, halfLength);
-        String rightPeacePalindrome = lowerCaseString.substring(halfLength + 1);
-        rightPeacePalindrome = new StringBuilder(rightPeacePalindrome).reverse().toString();
-        return leftPeacePalindrome.equals(rightPeacePalindrome);
+        for (int i = 0, j = lowerCaseString.length() - 1; i < lowerCaseString.length() / 2; i++, j--) {
+            if (lowerCaseString.charAt(i) != lowerCaseString.charAt(j)) {
+                return false;
+            }
+        }
+        return !lowerCaseString.isBlank();
     }
 
 //    task 20
-    public static String replaceSubstring(String string, String substring, String replacement) {
-        return string.replace(substring, replacement);
+    public static String replaceSubstring(String string, int start, int end, String replacement) {
+        StringBuilder stringBuilder = new StringBuilder(string);
+        stringBuilder.replace(start, end, replacement);
+        return stringBuilder.toString();
     }
 
 //    task 21
-    public static String add(String firstNumber, String secondNumber) {
+    public static String longSum(String firstNumber, String secondNumber) {
+        StringBuilder longNumberString = new StringBuilder();
         char firstChar, secondChar;
         int firstDigit, secondDigit;
         int digitSum = 0;
-        int shift = 0, single;
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = firstNumber.length() - 1, j = secondNumber.length() - 1; i >= 0 && j >= 0; i--, j--) {
+        int overflow = 0;
+        for (int i = firstNumber.length() - 1, j = secondNumber.length() - 1; i >= 0 || j >= 0; i--, j--) {
             if (i >= 0) {
                 firstChar = firstNumber.charAt(i);
                 firstDigit = Character.digit(firstChar, 10);
@@ -221,41 +245,44 @@ public class Main {
                 secondDigit = Character.digit(secondChar, 10);
                 digitSum += secondDigit;
             }
-            digitSum += shift;
+            digitSum += overflow;
             if (digitSum > 9) {
-                shift = digitSum / 10;
-                single = digitSum - 10;
-                stringBuilder.append(single);
+                overflow = 1;
+                longNumberString.append(digitSum - 10);
             } else {
-                shift = 0;
-                stringBuilder.append(digitSum);
+                overflow = 0;
+                longNumberString.append(digitSum);
             }
+            digitSum = 0;
         }
-        if (shift > 0) {
-            stringBuilder.append(shift);
+        if (overflow > 0) {
+            longNumberString.append(overflow);
         }
-        return stringBuilder.reverse().toString();
+        return longNumberString.reverse().toString();
     }
 
 //    task 22
     public static String deleteWord(String string, int wordLength) {
         String[] words = string.split("\\W+");
-        StringBuilder stringBuilder = new StringBuilder();
         for (String word : words) {
-            if (word.length() != wordLength) {
-                stringBuilder.append(word);
+            if (word.length() == wordLength) {
+                string = string.replaceFirst(word, "");
             }
         }
-        return stringBuilder.toString();
+        return string;
     }
 
 //    task 23
-    public static String trim(String string) {
-        return string.trim();
+    public static String deleteExtraSpace(String string) {
+        string = string.replaceAll("(\\s){2,}", "$1");
+        return string.strip();
     }
 
 //    task 24
-    public static String[] getWords(String string) {
-        return string.split("\\W+");
+    public static void printWords(String string) {
+        String[] words = string.split("\\W+");
+        for (String word : words) {
+            System.out.println(word);
+        }
     }
 }
